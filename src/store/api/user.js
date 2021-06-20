@@ -8,25 +8,38 @@ export default {
         username,
         password: sha256(password)
       })
-      return res.data
+      if (res.data.status !== 'OK') {
+        throw Error(res.data.status)
+      }
     },
+
     async login (context, { username, password }) {
       const res = await axios.post('/v1/login', {
         username,
         password: sha256(password)
       })
-      return res.data
+      if (res.data.status !== 'OK') {
+        throw Error(res.data.status)
+      }
     },
+
     async logout () {
-      return await axios.post('/v1/logout')
+      const res = await axios.post('/v1/logout')
+      if (res.data.status !== 'OK') {
+        throw Error(res.data.status)
+      }
     },
+
     async search_user (context, { username }) {
       const res = await axios.get('/v1/user', {
         params: {
           query: username
         }
       })
-      return res.data
+      if (res.data.status !== 'OK') {
+        throw Error(res.data.status)
+      }
+      return res.data.userList
     }
   }
 }
