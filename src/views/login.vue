@@ -1,35 +1,31 @@
 <template>
-  <div class="login_container">
-    <div class="login_box">
-      <v-row>
-        <div class="avatar_box">
-          <img src="../assets/logo.png">
-          <h1>AraPGP</h1>
-        </div>
-      </v-row>
-      <v-row>
-        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
-          <el-form-item prop="username">
-            <el-input
-              v-model="loginForm.username"
-              prefix-icon="el-icon-user-solid"
-              placeholder="username"
-            />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              v-model="loginForm.password"
-              prefix-icon="el-icon-lock"
-              type="password"
-              placeholder="password"
-            />
-          </el-form-item>
-          <el-form-item class="btns">
-            <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="primary" @click="goSignUp">注册</el-button>
-          </el-form-item>
-        </el-form>
-      </v-row>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="avatar_box">
+        <img src="../assets/logo.png">
+        <h1>AraPGP</h1>
+      </div>
+      <el-form ref="loginForm" :model="loginForm" :rules="loginFormRules" class="login-form">
+        <el-form-item prop="username">
+          <el-input
+            v-model="loginForm.username"
+            prefix-icon="el-icon-user-solid"
+            placeholder="username"
+          />
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            v-model="loginForm.password"
+            prefix-icon="el-icon-lock"
+            type="password"
+            placeholder="password"
+          />
+        </el-form-item>
+        <el-form-item class="btns">
+          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="primary" @click="goSignUp">注册</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -55,21 +51,73 @@ export default {
     }
   },
   methods: {
-    login () {
+    async login () {
+      this.$refs.loginForm.validate(async valid => {
+        if (valid) {
+          try {
+            await this.$store.dispatch('login', {
+              username: this.loginForm.username,
+              password: this.loginForm.password
+            })
+            this.$notify({
+              message: this.$createElement(
+                'i',
+                { style: 'teal' },
+                '登陆成功'
+              )
+            })
+            this.$router.push({ name: 'PGP' })
+          } catch (e) {
+            this.$notify({
+              title: 'Error!',
+              message: this.$createElement(
+                'i',
+                { style: 'red' },
+                e.toString()
+              )
+            })
+          }
+        }
+      })
     },
-    goSignUp () {
-      this.$router.push({ name: 'register' })
+    async goSignUp () {
+      this.$refs.loginForm.validate(async valid => {
+        if (valid) {
+          try {
+            await this.$store.dispatch('signup', {
+              username: this.loginForm.username,
+              password: this.loginForm.password
+            })
+            this.$notify({
+              message: this.$createElement(
+                'i',
+                { style: 'teal' },
+                '注册成功'
+              )
+            })
+          } catch (e) {
+            this.$notify({
+              title: 'Error!',
+              message: this.$createElement(
+                'i',
+                { style: 'red' },
+                e.toString()
+              )
+            })
+          }
+        }
+      })
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.login_container{
+.login-container{
   background-color: #CEE7E9;
   height: 100%;
 }
-.login_box{
+.login-box{
   width: 600px;
   height: 400px;
   background-color: #fff;
@@ -97,7 +145,7 @@ export default {
   }
   }
 }
-.login_form {
+.login-form {
   position: absolute;
   bottom: 20%;
   width: 100%;

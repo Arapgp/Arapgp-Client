@@ -21,6 +21,10 @@ export default {
       if (res.data.status !== 'OK') {
         throw Error(res.data.status)
       }
+      context.commit('set_profile', {
+        username,
+        session: res.data.session
+      })
     },
 
     async logout () {
