@@ -64,6 +64,7 @@ module.exports = {
       }
     ],
     'object-curly-spacing': ['warn', 'always'],
-    'eol-last': ['warn', 'always']
+    'eol-last': ['warn', 'always'],
+    camelcase: 'off'
   }
 }
