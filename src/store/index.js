@@ -27,6 +27,9 @@ export default new Vuex.Store({
       state.session = null
       state.publicKey = null
       state.privateKey = null
+    },
+    set_pubkey (state, { pubkey }) {
+      state.publicKey = pubkey
     }
   },
   modules: {

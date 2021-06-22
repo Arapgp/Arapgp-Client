@@ -38,3 +38,13 @@ export async function gen_keypair (name, email, passphrase) {
     publicKey: publicKeyArmored
   }
 }
+
+export function download (fileContent, fileName) {
+  const blob = new Blob([fileContent], { type: 'text/plain' })
+  const a = document.createElement('a')
+
+  a.download = fileName
+  a.href = window.URL.createObjectURL(blob)
+  a.dataset.downloadurl = `text/plain:${a.download}:${a.href}`
+  a.click()
+}

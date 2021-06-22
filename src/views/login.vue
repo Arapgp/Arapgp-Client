@@ -62,9 +62,10 @@ export default {
             this.$notify({
               message: this.$createElement(
                 'i',
-                { style: 'teal' },
+                { style: 'color: teal;' },
                 '登陆成功'
-              )
+              ),
+              duration: 800
             })
             this.$router.push({ name: 'PGP' })
           } catch (e) {
@@ -72,7 +73,7 @@ export default {
               title: 'Error!',
               message: this.$createElement(
                 'i',
-                { style: 'red' },
+                { style: 'color: red;' },
                 e.toString()
               )
             })
@@ -91,16 +92,17 @@ export default {
             this.$notify({
               message: this.$createElement(
                 'i',
-                { style: 'teal' },
+                { style: 'color: teal;' },
                 '注册成功'
-              )
+              ),
+              duration: 1000
             })
           } catch (e) {
             this.$notify({
               title: 'Error!',
               message: this.$createElement(
                 'i',
-                { style: 'red' },
+                { style: 'color: red;' },
                 e.toString()
               )
             })
