@@ -1,32 +1,46 @@
 <template>
   <div class="login_container">
     <div class="login_box">
-      <div class="avatar_box">
-        <img src="../assets/logo.png">
-      </div>
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
-        <el-form-item prop="username">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid" />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password" />
-        </el-form-item>
-        <el-form-item class="btns">
-          <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="primary" @click="goSignUp">注册</el-button>
-        </el-form-item>
-      </el-form>
+      <v-row>
+        <div class="avatar_box">
+          <img src="../assets/logo.png">
+          <h1>AraPGP</h1>
+        </div>
+      </v-row>
+      <v-row>
+        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
+          <el-form-item prop="username">
+            <el-input
+              v-model="loginForm.username"
+              prefix-icon="el-icon-user-solid"
+              placeholder="username"
+            />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              v-model="loginForm.password"
+              prefix-icon="el-icon-lock"
+              type="password"
+              placeholder="password"
+            />
+          </el-form-item>
+          <el-form-item class="btns">
+            <el-button type="primary" @click="login">登录</el-button>
+            <el-button type="primary" @click="goSignUp">注册</el-button>
+          </el-form-item>
+        </el-form>
+      </v-row>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       loginForm: {
-        username: 'pgp',
-        password: '123456'
+        username: '',
+        password: ''
       },
       loginFormRules: {
         username: [
@@ -41,22 +55,10 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$refs.loginFormRef.validate(async valid => {
-        if (!valid) return
-        // TODO
-        const res = await this.$http.post('/api/v1/login', this.loginForm)
-        console.log(res)
-        // if (res.meta.status !== 200) return this.$message.error('登录失败！')
-        // this.$message.success('登录成功！')
-        // 将登录成功之后的 token， 保存到客户端的sessionStorage中
-        // window.sessionStorage.setItem('token', res.data.token)
-        // 通过编程式导航跳转到后台主页，路由地址暂定为 /home
-        this.$router.push('/pgp')
-      })
+    login () {
     },
-    goSignUp() {
-      this.$router.push({ path: '/signup' })
+    goSignUp () {
+      this.$router.push({ name: 'register' })
     }
   }
 }

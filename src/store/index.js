@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import user from './api/user'
 import file from './api/file'
+import keys from './api/keys'
 
 Vue.use(Vuex)
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
   },
   modules: {
     user,
-    file
+    file,
+    keys
   }
 })
